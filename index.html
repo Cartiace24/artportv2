@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f3ed" />
+    <meta name="description" content="A portfolio demo for virtual creator artwork, featuring temporary reference images supplied for layout review." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Illustrated Archive — Portfolio Demo" />
+    <meta property="og:description" content="A quiet, spatial portfolio demo for artwork made for virtual creators. Images are temporary references, not the artist’s work." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Illustrated Archive — Portfolio Demo</title>
+    <script>if (location.protocol === 'file:') document.documentElement.classList.add('file-open');</script>
+    <link rel="stylesheet" href="./src/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <aside class="launch-notice" role="status">
+      <p class="eyebrow"><span class="rule"></span> ONE SMALL SETUP STEP</p>
+      <h1>The archive needs<br><em>its local web server.</em></h1>
+      <p>You opened the project file directly. The gallery needs Vite to serve its modules and artwork.</p>
+      <p>Run <code>open-portfolio.bat</code> in the project folder, or run <code>npm run dev</code> and open the local address.</p>
+      <a href="http://localhost:5173/">Open the gallery at localhost:5173 ↗</a>
+    </aside>
+    <div id="app">
+      <canvas id="world" aria-label="Interactive illustrated gallery. Select an artwork to explore it."></canvas>
+      <div class="paper-grain" aria-hidden="true"></div>
+      <div class="art-labels" id="art-labels" aria-label="Artwork in the gallery"></div>
+      <header class="masthead">
+        <a class="wordmark" id="home-link" href="#home" aria-label="Illustration archive home">Illustration archive<span>Visual stories / Selected work</span></a>
+        <div class="issue-mark"><span>PORTFOLIO DEMO</span><span>2026</span></div>
+        <nav class="top-nav" aria-label="Main navigation">
+          <button data-view="work" class="nav-link active">Work</button>
+          <button data-view="archive" class="nav-link">Archive <sup id="archive-nav-count">11</sup></button>
+          <button data-view="commissions" class="nav-link">Commissions</button>
+          <button data-view="about" class="nav-link">About</button>
+          <button data-view="contact" class="nav-link">Contact <span class="arrow">↗</span></button>
+        </nav>
+      </header>
+      <main>
+        <section class="intro-note" id="intro-note">
+          <p class="eyebrow"><span class="rule"></span> ARTWORK FOR VIRTUAL CREATORS</p>
+          <p class="intro-copy">Characters, expressions,<br>and worlds to share.</p>
+          <div class="intro-actions">
+            <button class="enter-button" id="enter-world"><span>Explore world</span><span class="enter-arrow">↗</span></button>
+            <button class="browse-button" id="browse-work">All work <span id="browse-work-count">11</span></button>
+          </div>
+        </section>
+        <div class="scene-caption"><span>01 — A FIELD OF ILLUSTRATIONS</span></div>
+        <div class="scene-hint" id="scene-hint"><span class="hint-dot"></span> DRAG TO LOOK <span class="hint-divider">·</span> SCROLL TO WANDER <span class="hint-divider">·</span> SELECT AN IMAGE <span class="gallery-progress"><span id="gallery-position">01 / 11</span><i id="gallery-progress-bar" role="progressbar" aria-label="Gallery position" aria-valuemin="1" aria-valuemax="11" aria-valuenow="1"><b></b></i></span></div>
+        <div class="mobile-controls" aria-label="Move through the gallery">
+          <button id="mobile-previous" type="button" aria-label="Previous gallery position">←</button>
+          <span id="mobile-position" aria-live="polite">01 / 11</span>
+          <button id="mobile-next" type="button" aria-label="Next gallery position">→</button>
+        </div>
+        <section class="work-panel" id="work-panel" aria-live="polite" aria-hidden="true" aria-label="Artwork details">
+          <button class="close-panel" id="close-work" aria-label="Return to gallery">← <span>BACK TO THE GALLERY</span></button>
+          <p class="eyebrow" id="work-category">DEMO IMAGE&nbsp; / &nbsp;DEMO</p>
+          <p class="work-client" id="work-client" hidden></p>
+          <h2 id="work-title">Reference 01</h2>
+          <p class="work-medium" id="work-medium"></p>
+          <p class="work-description" id="work-description"></p>
+          <div class="commission-prompt" id="commission-prompt" hidden>
+            <p>LIKE THIS STYLE?</p>
+            <button id="commission-from-artwork" type="button">Commission something similar ↗</button>
+          </div>
+          <button class="read-story" id="read-story" hidden>Read the story <span>↗</span></button>
+          <a class="work-external" id="work-external" target="_blank" rel="noreferrer" hidden>Read the full story ↗</a>
+          <div class="panel-index"><span>THE ARCHIVE</span><span id="work-number">01 / 11</span></div>
+        </section>
+        <section class="editorial-view" id="archive-view" aria-hidden="true">
+          <div class="view-heading"><div><p class="eyebrow">DEMO INDEX&nbsp; / &nbsp;2026</p><h2>Collected <em>work.</em></h2></div><p>Temporary crops from the supplied<br>gallery reference.</p></div>
+          <div class="archive-grid" id="archive-grid"></div>
+        </section>
+        <section class="editorial-view commission-view" id="commissions-view" aria-hidden="true" aria-labelledby="commissions-title">
+          <div class="commission-kicker"><span>COMMISSIONS / CREATOR ARTWORK</span><span>DETAILS SET BY THE ARTIST</span></div>
+          <div class="commission-heading">
+            <h2 id="commissions-title">Artwork for<br><em>your channel.</em></h2>
+            <p>Browse the offerings currently open for inquiry.<br>Share a little about your project to begin.</p>
+          </div>
+          <div class="commission-services" id="commission-services" aria-label="Commission types"></div>
+          <p class="commission-empty" id="commission-empty" hidden>No commission offerings are configured for this demo.</p>
+          <section class="commission-process" aria-labelledby="process-title">
+            <div class="commission-section-head"><p class="eyebrow">A SIMPLE BEGINNING</p><h3 id="process-title">How it works</h3></div>
+            <ol class="process-list">
+              <li><span>01</span><p>Tell me what you need</p></li>
+              <li><span>02</span><p>Discuss the idea</p></li>
+              <li><span>03</span><p>Sketch / approval</p></li>
+              <li><span>04</span><p>Final artwork</p></li>
+            </ol>
+          </section>
+          <section class="commission-inquiry" id="inquiry" aria-labelledby="inquiry-title">
+            <div class="commission-section-head"><p class="eyebrow">START A CONVERSATION</p><h3 id="inquiry-title">Tell me about<br><em>your project.</em></h3><p>Share the idea, character, or assets you have in mind.</p></div>
+            <form class="inquiry-form" id="commission-form">
+              <div class="form-pair">
+                <label>Your name <span>REQUIRED</span><input name="name" autocomplete="name" required /></label>
+                <label>Email address <span>REQUIRED</span><input name="email" type="email" autocomplete="email" required /></label>
+              </div>
+              <div id="inquiry-type-field"></div>
+              <label>Character / project description <span>REQUIRED</span><textarea name="description" rows="4" required placeholder="A few details about the character, channel, or artwork you have in mind…"></textarea></label>
+              <div class="form-pair">
+                <label>Preferred deadline <span>OPTIONAL</span><input name="deadline" placeholder="A date or flexible" /></label>
+                <label>Budget <span>OPTIONAL</span><input name="budget" placeholder="Your range, if known" /></label>
+              </div>
+              <label>Additional notes <span>OPTIONAL</span><textarea name="notes" rows="2" placeholder="Anything else that would help describe the project…"></textarea></label>
+              <label class="reference-field">Reference images <span>OPTIONAL</span><input name="references" type="file" accept="image/*" multiple aria-describedby="reference-note" /><small id="reference-note">Selected images stay on your device. Attach them to the email draft before sending.</small></label>
+              <button class="inquiry-submit" type="submit">Send inquiry <span>↗</span></button>
+              <p class="inquiry-note" id="inquiry-note">Your email app will open with the inquiry ready to review.</p>
+            </form>
+            <p class="inquiry-unavailable" id="inquiry-unavailable" tabindex="-1" hidden>This demo has no commission inbox yet. Add the artist’s email before inviting visitors to send inquiries.</p>
+          </section>
+        </section>
+        <section class="editorial-view story-view" id="story-view" aria-hidden="true">
+          <button class="story-return" id="story-return">← Return to artwork</button>
+          <div class="story-layout">
+            <figure class="story-figure"><img id="story-image" alt="" /><figcaption>FROM THE STUDIO ARCHIVE</figcaption></figure>
+            <article class="story-copy">
+              <p class="eyebrow" id="story-category">DEMO IMAGE / DEMO</p>
+              <h2 id="story-title">Reference 01</h2>
+              <p class="story-intro" id="story-intro"></p>
+              <div class="story-body" id="story-body"></div>
+              <dl class="story-meta"><div><dt>YEAR</dt><dd id="story-year"></dd></div><div><dt>MEDIUM</dt><dd id="story-medium"></dd></div><div><dt>CATEGORY</dt><dd id="story-category-name"></dd></div></dl>
+              <div class="related-work"><span>CONTINUE WANDERING</span><div id="related-works"></div></div>
+            </article>
+          </div>
+        </section>
+        <section class="editorial-view info-view" id="about-view" aria-hidden="true">
+          <div class="info-kicker">A NOTE FROM THE STUDIO <span>04 / 26</span></div>
+          <div class="info-columns"><h2>Drawing as a way<br>of <em>paying attention.</em></h2><div><div id="about-bio" class="about-bio">This portfolio demo uses temporary image crops from the supplied gallery reference. The artist biography and original work will be added before a public portfolio launch.</div><div class="detail-list"><span>FOCUS</span><p id="about-focus">To be supplied by the artist</p><span>MEDIUMS</span><p id="about-mediums">To be supplied by the artist</p><span id="about-location-label">BASED IN</span><p id="about-location"></p></div></div></div>
+        </section>
+        <section class="editorial-view info-view contact-view" id="contact-view" aria-hidden="true">
+          <div class="info-kicker">CONTACT <span id="contact-location" hidden></span></div>
+          <div class="info-columns"><h2>Good things<br>start with <em>a note.</em></h2><div><p id="contact-blurb">This demo preview is not connected to a commission inbox yet.</p><button class="contact-commission-link" id="contact-commission-link" type="button">Explore commissions ↗</button><a class="contact-email" id="contact-email" hidden></a><div class="social-links" id="contact-socials" hidden><a id="contact-instagram" target="_blank" rel="noreferrer" hidden>Instagram ↗</a><a id="contact-arena" target="_blank" rel="noreferrer" hidden>Are.na ↗</a></div><p class="availability" id="contact-availability">Demo preview · inquiries are not connected</p></div></div>
+        </section>
+      </main>
+      <footer class="folio-footer"><span>PORTFOLIO DEMO · TEMPORARY IMAGES</span><span>© <span id="copyright-year">2026</span></span></footer>
+      <aside class="demo-notice" aria-label="Demo image notice">
+        <span>DEMO IMAGES ONLY · NOT THE ARTIST’S WORK</span>
+        <details>
+          <summary>ABOUT THESE IMAGES</summary>
+          <div class="demo-credit-list">
+            <p>These images are crops from the supplied gallery reference. They are temporary demo visuals, not artwork by the artist; replace them before presenting this as an artist portfolio.</p>
+          </div>
+        </details>
+      </aside>
+      <div class="loading-screen" id="loading-screen"><div class="loading-mark">THE ARCHIVE</div><p>is being prepared</p><span class="loading-line" role="progressbar" aria-label="Preparing artwork" aria-valuemin="0" aria-valuemax="100"><i id="loading-progress"></i></span></div>
+      <div class="error-note" id="error-note" role="status" hidden><span>The interactive gallery is unavailable in this browser. Browse the artwork index instead.</span><button id="error-browse" type="button">Browse artwork ↗</button></div>
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
