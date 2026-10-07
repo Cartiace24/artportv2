@@ -24,6 +24,7 @@ let lastArtworkTrigger = null;
 function setView(view) {
   currentView = view;
   $('#app').classList.toggle('editorial-open', view !== 'work');
+  $('#app').classList.toggle('archive-open', view === 'archive');
   const activeView = view === 'story' ? 'work' : view;
   document.querySelectorAll('.nav-link').forEach(button => button.classList.toggle('active', button.dataset.view === activeView));
   for (const [key, element] of Object.entries({ archive: elements.archive, commissions: elements.commissions, story: elements.story, about: elements.about, contact: elements.contact })) {
