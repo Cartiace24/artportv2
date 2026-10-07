@@ -28,4 +28,4 @@ The commission page presents only configured offerings. The demo has no artist e
 
 ## Demo deployment
 
-The public portfolio can be deployed as a static Vite build with `npm run build`; the output is in `dist/`. The curator route and local write API are development-only and are not production authentication or storage. Keep Manage local for this demo. Replace the generated demo illustrations with authorized artwork and configure accurate artist and contact details before presenting it as a live portfolio.
+The public portfolio can be deployed as a static Vite build with `npm run build`; the output is in `dist/`. The curator route and local write API are development-only and are not production authentication or storage. Keep Manage local for this demo. Replace the placeholder demo illustrations with authorized artwork and configure accurate artist and contact details before presenting it as a live portfolio.
